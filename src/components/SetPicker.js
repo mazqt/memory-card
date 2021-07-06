@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from "react";
-
 function SetPicker(props) {
   return (
     <div>
       <select onChange={props.onChangeSet} value={props.selectedSet}>
-        <option value="DOM">Dominaria</option>
-        <option value="LEA">Alpha</option>
-        <option value="LEB">Beta</option>
+        {props.magicSets.map((set) => {
+          return <option value={set.code}>{set.name}</option>;
+        })}
       </select>
     </div>
   );
