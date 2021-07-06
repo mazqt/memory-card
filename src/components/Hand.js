@@ -3,7 +3,6 @@ import Card from "./Card";
 function Hand(props) {
   return (
     <div>
-      <button onClick={props.chooseCard}>Score</button>
       <Card chooseCard={props.chooseCard} card={props.hand[0]} />
       <Card chooseCard={props.chooseCard} card={props.hand[1]} />
       <Card chooseCard={props.chooseCard} card={props.hand[2]} />

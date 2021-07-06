@@ -31,7 +31,7 @@ function App() {
 
   async function fetchSets() {
     setLoadingSets(true);
-    let response = await mtg.set.where({ type: "core" });
+    let response = await mtg.set.where({ type: "core" | "expansion" });
     let sets = [...response];
     response = await mtg.set.where({ type: "expansion" });
     sets = [...sets, ...response];
