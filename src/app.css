@@ -20,8 +20,6 @@ body {
 .Menu {
   background-color: rgba(255, 255, 255, 0.7);
   border-radius: 20px;
-  min-width: auto;
-
   min-height: auto;
   padding: 0;
   margin: 0;
@@ -59,4 +57,17 @@ body {
 img {
   width: 14.28vw;
   height: 40vh;
+}
+
+/* Footer */
+
+.Footer {
+  background-color: rgba(255, 255, 255, 0.7);
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  position: absolute;
+  left: 0;
+  bottom: 0;
 }

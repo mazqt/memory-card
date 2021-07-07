@@ -3,6 +3,8 @@ import Score from "./components/Score";
 import Hand from "./components/Hand";
 import SetPicker from "./components/SetPicker";
 import ColourPicker from "./components/ColourPicker";
+import MenuText from "./components/MenuText";
+import Footer from "./components/Footer";
 import "./app.css";
 
 function App() {
@@ -91,72 +93,51 @@ function App() {
 
   if (playing) {
     return (
-      <div className="Game">
-        <Score score={score} highscore={highscore} />
-        <Hand chooseCard={chooseCard} hand={hand} />
-        <button onClick={setPlaying.bind(null, false)}>Back to menu</button>
+      <div>
+        <div className="Game">
+          <Score score={score} highscore={highscore} />
+          <Hand chooseCard={chooseCard} hand={hand} />
+          <button onClick={setPlaying.bind(null, false)}>Back to menu</button>
+        </div>
+        <Footer />
       </div>
     );
   } else {
     if (loading || loadingSets) {
       return (
-        <div className="Menu">
-          <div style={{ width: "30vw" }}>
-            <p>
-              In this game, you'll be presented with a hand of 7 cards from the
-              set and colour you've chosen. After you pick one, you'll be
-              presented with a new hand of 7 cards. As long as you keep choosing
-              cards that you haven't picked already, your score will increase.
-              Once you pick a card that you've already chosen, the score and
-              cards you've picked will both reset. Try to get as high of a score
-              as you can!
-            </p>
-            <p>PS.</p>
-            <p>
-              While the game allows you to pick any set from magic's history,
-              some of the cards from older sets lack image urls, and are thus
-              removed from the pool. Hence, you may find that certain sets may
-              give you a smaller number of cards than newer ones.
-            </p>
+        <div>
+          <div className="Menu">
+            <div style={{ width: "30vw" }}>
+              <MenuText />
+            </div>
+            <div className="Picker">
+              <p>Loading!</p>
+            </div>
           </div>
-          <div className="Picker">
-            <p>Loading!</p>
-          </div>
+          <Footer />
         </div>
       );
     } else {
       return (
-        <div className="Menu">
-          <div style={{ width: "30vw" }}>
-            <p>
-              In this game, you'll be presented with a hand of 7 cards from the
-              set and colour you've chosen. After you pick one, you'll be
-              presented with a new hand of 7 cards. As long as you keep choosing
-              cards that you haven't picked already, your score will increase.
-              Once you pick a card that you've already chosen, the score and
-              cards you've picked will both reset. Try to get as high of a score
-              as you can!
-            </p>
-            <p>PS.</p>
-            <p>
-              While the game allows you to pick any set from magic's history,
-              some of the cards from older sets lack image urls, and are thus
-              removed from the pool. Hence, you may find that certain sets may
-              give you a smaller number of cards than newer ones.
-            </p>
+        <div>
+          <div className="Menu">
+            <div style={{ width: "30vw" }}>
+              <MenuText />
+            </div>
+            <div className="Picker">
+              <SetPicker
+                onChangeSet={magicSetHandler}
+                selectedSet={magicSet}
+                magicSets={magicSets}
+              />
+              <ColourPicker
+                onChangeColour={magicColourHandler}
+                selectedColour={colour}
+              />
+              <button onClick={setPlaying.bind(null, true)}>Play!</button>
+            </div>
           </div>
-          <div className="Picker">
-            <SetPicker
-              onChangeSet={magicSetHandler}
-              selectedSet={magicSet}
-              magicSets={magicSets}
-            />
-            <ColourPicker
-              onChangeColour={magicColourHandler}
-              selectedColour={colour}
-            />
-            <button onClick={setPlaying.bind(null, true)}>Play!</button>
-          </div>
+          <Footer />
         </div>
       );
     }
