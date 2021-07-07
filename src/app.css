@@ -1,0 +1,62 @@
+body {
+  height: 100vh;
+  margin: 0px;
+  background-image: url("https://assets.dicebreaker.com/magic-the-gathering-trading-card-game-cards-8.JPG/BROK/resize/1200x1200%3E/format/jpg/quality/70/magic-the-gathering-trading-card-game-cards-8.JPG");
+  background-size: cover;
+}
+
+#root {
+  background-color: rgba(255, 255, 255, 0.4);
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Menu */
+
+.Menu {
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 20px;
+  min-width: auto;
+
+  min-height: auto;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1vw;
+}
+
+.Picker {
+  display: flex;
+  flex-direction: row;
+}
+
+/* Game */
+
+.Game {
+  width: 100vw;
+  height: 100vh;
+  margin: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Hand {
+  width: 100%;
+  height: 40vh;
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 20px;
+}
+
+img {
+  width: 14.28vw;
+  height: 40vh;
+}

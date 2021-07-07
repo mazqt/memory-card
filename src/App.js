@@ -3,6 +3,7 @@ import Score from "./components/Score";
 import Hand from "./components/Hand";
 import SetPicker from "./components/SetPicker";
 import ColourPicker from "./components/ColourPicker";
+import "./app.css";
 
 function App() {
   const mtg = require("mtgsdk");
@@ -37,7 +38,6 @@ function App() {
     sets = [...sets, ...response];
     setMagicSets(sets);
     setLoadingSets(false);
-    console.log(sets);
   }
 
   function createHand() {
@@ -59,7 +59,6 @@ function App() {
   useEffect(() => {
     if (cards !== null) {
       createHand();
-      console.log(cards);
     }
   }, [cards, score]);
 
@@ -92,28 +91,72 @@ function App() {
 
   if (playing) {
     return (
-      <div>
+      <div className="Game">
         <Score score={score} highscore={highscore} />
         <Hand chooseCard={chooseCard} hand={hand} />
-        <button onClick={setPlaying.bind(null, false)}>Toggle Playing</button>
+        <button onClick={setPlaying.bind(null, false)}>Back to menu</button>
       </div>
     );
   } else {
     if (loading || loadingSets) {
-      return <h1>Still loading!</h1>;
+      return (
+        <div className="Menu">
+          <div style={{ width: "30vw" }}>
+            <p>
+              In this game, you'll be presented with a hand of 7 cards from the
+              set and colour you've chosen. After you pick one, you'll be
+              presented with a new hand of 7 cards. As long as you keep choosing
+              cards that you haven't picked already, your score will increase.
+              Once you pick a card that you've already chosen, the score and
+              cards you've picked will both reset. Try to get as high of a score
+              as you can!
+            </p>
+            <p>PS.</p>
+            <p>
+              While the game allows you to pick any set from magic's history,
+              some of the cards from older sets lack image urls, and are thus
+              removed from the pool. Hence, you may find that certain sets may
+              give you a smaller number of cards than newer ones.
+            </p>
+          </div>
+          <div className="Picker">
+            <p>Loading!</p>
+          </div>
+        </div>
+      );
     } else {
       return (
-        <div className="App">
-          <SetPicker
-            onChangeSet={magicSetHandler}
-            selectedSet={magicSet}
-            magicSets={magicSets}
-          />
-          <ColourPicker
-            onChangeColour={magicColourHandler}
-            selectedColour={colour}
-          />
-          <button onClick={setPlaying.bind(null, true)}>Toggle Playing</button>
+        <div className="Menu">
+          <div style={{ width: "30vw" }}>
+            <p>
+              In this game, you'll be presented with a hand of 7 cards from the
+              set and colour you've chosen. After you pick one, you'll be
+              presented with a new hand of 7 cards. As long as you keep choosing
+              cards that you haven't picked already, your score will increase.
+              Once you pick a card that you've already chosen, the score and
+              cards you've picked will both reset. Try to get as high of a score
+              as you can!
+            </p>
+            <p>PS.</p>
+            <p>
+              While the game allows you to pick any set from magic's history,
+              some of the cards from older sets lack image urls, and are thus
+              removed from the pool. Hence, you may find that certain sets may
+              give you a smaller number of cards than newer ones.
+            </p>
+          </div>
+          <div className="Picker">
+            <SetPicker
+              onChangeSet={magicSetHandler}
+              selectedSet={magicSet}
+              magicSets={magicSets}
+            />
+            <ColourPicker
+              onChangeColour={magicColourHandler}
+              selectedColour={colour}
+            />
+            <button onClick={setPlaying.bind(null, true)}>Play!</button>
+          </div>
         </div>
       );
     }
