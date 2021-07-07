@@ -20,6 +20,7 @@ function App() {
   const [usedCards, setUsedCards] = useState([]);
   const [magicSets, setMagicSets] = useState([]);
   const [loadingSets, setLoadingSets] = useState(true);
+  const [hasWon, setHasWon] = useState(false);
 
   async function fetchSet() {
     setLoading(true);
@@ -30,6 +31,13 @@ function App() {
     });
     setCards(response);
     setLoading(false);
+  }
+
+  function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
   }
 
   async function fetchSets() {
@@ -44,13 +52,22 @@ function App() {
 
   function createHand() {
     let indexes = [];
-    do {
+
+    while (indexes.length < 1) {
+      let index = Math.floor(Math.random() * cards.length);
+      if (!usedCards.includes(cards[index].name)) {
+        indexes.push(index);
+      }
+    }
+
+    while (indexes.length < 7) {
       let index = Math.floor(Math.random() * cards.length);
       if (!indexes.includes(index)) {
         indexes.push(index);
       }
-    } while (indexes.length < 7);
+    }
     let newHand = indexes.map((index) => cards[index]);
+    shuffleArray(newHand);
     setHand(newHand);
   }
 
@@ -84,6 +101,9 @@ function App() {
       if (score >= highscore) {
         setHighscore(score + 1);
       }
+      if (usedCards.length + 1 === cards.length) {
+        setHasWon(true);
+      }
       setUsedCards([...usedCards, name]);
     } else {
       setScore(0);
@@ -92,16 +112,34 @@ function App() {
   };
 
   if (playing) {
-    return (
-      <div>
-        <div className="Game">
-          <Score score={score} highscore={highscore} />
-          <Hand chooseCard={chooseCard} hand={hand} />
-          <button onClick={setPlaying.bind(null, false)}>Back to menu</button>
+    if (!hasWon) {
+      return (
+        <div>
+          <div className="Game">
+            <Score score={score} highscore={highscore} />
+            <Hand chooseCard={chooseCard} hand={hand} />
+            <button onClick={setPlaying.bind(null, false)}>Back to menu</button>
+          </div>
+          <Footer />
         </div>
-        <Footer />
-      </div>
-    );
+      );
+    } else {
+      return (
+        <div className="Menu">
+          <p>
+            Congratulations, you managed to win the game! Your memory must be
+            quite outstanding to have done that.
+          </p>
+          <button
+            onClick={() => {
+              window.location.reload();
+            }}
+          >
+            Play again
+          </button>
+        </div>
+      );
+    }
   } else {
     if (loading || loadingSets) {
       return (
